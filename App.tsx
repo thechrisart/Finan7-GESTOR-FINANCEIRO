@@ -31,7 +31,7 @@ const App: React.FC = () => {
   const handleAddRow = useCallback((category: FinanceCategory) => {
     const newItem: FinanceItem = {
       id: `${Date.now()}-${Math.random()}`,
-      description: 'Novo Item',
+      description: 'New Item',
       value: 0
     };
     if (category === 'ENTRADAS') setIncomes(prev => [...prev, newItem]);
@@ -54,7 +54,7 @@ const App: React.FC = () => {
   const emergencyFund = useMemo(() => totalEssential * 6, [totalEssential]);
 
   const formatCurrency = (val: number) => {
-    return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    return val.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
   };
 
   return (
@@ -65,16 +65,16 @@ const App: React.FC = () => {
           <Logo />
           <div className="flex flex-wrap gap-4 md:gap-8">
             <div className="flex flex-col">
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Saldo Mensal</span>
+              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Monthly Balance</span>
               <span className={`text-xl font-bold ${netBalance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                 {formatCurrency(netBalance)}
               </span>
             </div>
             <div className="h-10 w-px bg-slate-200 hidden md:block" />
             <div className="flex flex-col">
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Atualizado em</span>
+              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Updated on</span>
               <span className="text-sm font-medium text-slate-700">
-                {new Date().toLocaleDateString('pt-BR')}
+                {new Date().toLocaleDateString('en-US')}
               </span>
             </div>
           </div>
@@ -89,14 +89,14 @@ const App: React.FC = () => {
           {/* Income Table */}
           <section>
             <FinanceTable 
-              title="Entradas / Ganhos"
+              title="Income / Earnings"
               items={incomes}
               onUpdate={(id, field, value) => handleUpdate('ENTRADAS', id, field, value)}
               onAdd={() => handleAddRow('ENTRADAS')}
               onRemove={(id) => handleRemoveRow('ENTRADAS', id)}
             />
             <div className="mt-2 bg-yellow-400 p-3 rounded-lg flex justify-between items-center shadow-sm">
-              <span className="font-bold text-xs md:text-sm text-black">TOTAL DE ENTRADAS</span>
+              <span className="font-bold text-xs md:text-sm text-black">TOTAL INCOME</span>
               <span className="font-black text-lg text-black">{formatCurrency(totalIncomes)}</span>
             </div>
           </section>
@@ -111,7 +111,7 @@ const App: React.FC = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Sobra Mensal Estimada</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Estimated Monthly Surplus</p>
                   <p className="text-xl font-bold text-slate-800">{formatCurrency(netBalance)}</p>
                 </div>
               </div>
@@ -123,7 +123,7 @@ const App: React.FC = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Reserva de Emergência Ideal (6 meses)</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ideal Emergency Fund (6 months)</p>
                   <p className="text-xl font-bold text-white">{formatCurrency(emergencyFund)}</p>
                 </div>
               </div>
@@ -131,7 +131,7 @@ const App: React.FC = () => {
 
             <div className="pt-4 border-t border-slate-100">
               <p className="text-xs text-slate-400 leading-relaxed italic">
-                * A reserva de emergência recomendada deve cobrir pelo menos 6 meses dos seus gastos essenciais ({formatCurrency(totalEssential)}/mês).
+                * The recommended emergency fund should cover at least 6 months of your essential expenses ({formatCurrency(totalEssential)}/month).
               </p>
             </div>
           </section>
@@ -150,14 +150,14 @@ const App: React.FC = () => {
           <section className="relative">
             <div className="absolute -left-6 top-12 bottom-4 w-1 bg-yellow-400 rounded-full hidden xl:block" />
             <FinanceTable 
-              title="Despesas Essenciais"
+              title="Essential Expenses"
               items={essentialExpenses}
               onUpdate={(id, field, value) => handleUpdate('ESSENCIAIS', id, field, value)}
               onAdd={() => handleAddRow('ESSENCIAIS')}
               onRemove={(id) => handleRemoveRow('ESSENCIAIS', id)}
             />
             <div className="mt-2 bg-slate-900 p-3 rounded-lg flex justify-between items-center text-white">
-              <span className="font-bold text-xs uppercase tracking-tighter">SUBTOTAL ESSENCIAIS</span>
+              <span className="font-bold text-xs uppercase tracking-tighter">ESSENTIAL SUBTOTAL</span>
               <span className="font-black text-base">{formatCurrency(totalEssential)}</span>
             </div>
           </section>
@@ -166,7 +166,7 @@ const App: React.FC = () => {
           <section className="relative">
              <div className="absolute -left-6 top-12 bottom-4 w-1 bg-slate-200 rounded-full hidden xl:block" />
             <FinanceTable 
-              title="Despesas Não Essenciais"
+              title="Non-Essential Expenses"
               items={nonEssentialExpenses}
               onUpdate={(id, field, value) => handleUpdate('NAO_ESSENCIAIS', id, field, value)}
               onAdd={() => handleAddRow('NAO_ESSENCIAIS')}
@@ -174,7 +174,7 @@ const App: React.FC = () => {
               bgColor="bg-slate-700"
             />
             <div className="mt-2 bg-slate-800 p-3 rounded-lg flex justify-between items-center text-white">
-              <span className="font-bold text-xs uppercase tracking-tighter">SUBTOTAL NÃO ESSENCIAIS</span>
+              <span className="font-bold text-xs uppercase tracking-tighter">NON-ESSENTIAL SUBTOTAL</span>
               <span className="font-black text-base">{formatCurrency(totalNonEssential)}</span>
             </div>
           </section>
@@ -182,8 +182,8 @@ const App: React.FC = () => {
           {/* Grand Total Footer */}
           <section className="bg-yellow-400 p-5 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-lg ring-4 ring-yellow-400/20">
             <div>
-              <h4 className="font-black text-black text-xl uppercase tracking-tighter leading-none">Total Geral de Despesas</h4>
-              <p className="text-black/60 text-xs mt-1 font-medium">Soma de todos os seus gastos mensais</p>
+              <h4 className="font-black text-black text-xl uppercase tracking-tighter leading-none">Grand Total Expenses</h4>
+              <p className="text-black/60 text-xs mt-1 font-medium">Sum of all your monthly spending</p>
             </div>
             <div className="text-right">
                <span className="text-3xl font-black text-black">{formatCurrency(totalExpenses)}</span>
@@ -195,13 +195,13 @@ const App: React.FC = () => {
       {/* Sticky Mobile Summary */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 flex items-center justify-between shadow-2xl z-40">
         <div className="flex flex-col">
-          <span className="text-[10px] text-slate-500 font-bold uppercase">Sobra</span>
+          <span className="text-[10px] text-slate-500 font-bold uppercase">Surplus</span>
           <span className={`font-black ${netBalance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
             {formatCurrency(netBalance)}
           </span>
         </div>
         <div className="flex flex-col items-end">
-          <span className="text-[10px] text-slate-500 font-bold uppercase">Total Gastos</span>
+          <span className="text-[10px] text-slate-500 font-bold uppercase">Total Spending</span>
           <span className="font-black text-slate-900">{formatCurrency(totalExpenses)}</span>
         </div>
       </div>

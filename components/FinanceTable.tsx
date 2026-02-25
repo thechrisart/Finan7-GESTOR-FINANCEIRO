@@ -28,7 +28,7 @@ const FinanceTable: React.FC<FinanceTableProps> = ({
             onClick={onAdd}
             className="text-xs bg-white/20 hover:bg-white/30 transition-colors px-2 py-1 rounded font-semibold uppercase"
           >
-            + Adicionar
+            + Add
           </button>
         )}
       </div>
@@ -37,8 +37,8 @@ const FinanceTable: React.FC<FinanceTableProps> = ({
         <table className="w-full text-left text-sm border-collapse">
           <thead className="bg-yellow-400 text-black font-bold uppercase text-[10px] md:text-xs">
             <tr>
-              <th className="px-4 py-2 w-2/3 border-r border-yellow-500/30">DESCRIÇÃO</th>
-              <th className="px-4 py-2 w-1/3 text-right">VALOR</th>
+              <th className="px-4 py-2 w-2/3 border-r border-yellow-500/30">DESCRIPTION</th>
+              <th className="px-4 py-2 w-1/3 text-right">VALUE</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -67,12 +67,12 @@ const FinanceTable: React.FC<FinanceTableProps> = ({
                 </td>
                 <td className="px-3 py-1.5 text-right font-medium text-slate-700">
                   <div className="flex items-center justify-end">
-                    <span className="text-slate-400 mr-1">R$</span>
+                    <span className="text-slate-400 mr-1">$</span>
                     <input
                       type="number"
                       step="0.01"
                       value={item.value || ''}
-                      placeholder="0,00"
+                      placeholder="0.00"
                       onChange={(e) => onUpdate(item.id, 'value', parseFloat(e.target.value) || 0)}
                       className="w-24 bg-transparent text-right focus:outline-none focus:ring-1 focus:ring-yellow-400/50 rounded px-1 py-0.5 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
